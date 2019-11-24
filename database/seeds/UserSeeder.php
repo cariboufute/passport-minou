@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -17,7 +18,8 @@ class UserSeeder extends Seeder
             'name' => 'Minette',
             'email' => 'minette@minette.com',
             'email_verified_at' => now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('minette'),
+            'password' => Hash::make('minette'),
+            'image' => 'image/minette.jpg',
             'remember_token' => Str::random(10),
         ]);
 
@@ -25,7 +27,8 @@ class UserSeeder extends Seeder
             'name' => 'Minou',
             'email' => 'minou@minette.com',
             'email_verified_at' => now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('minou'),
+            'password' => Hash::make('minou'),
+            'image' => 'image/minou.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => true,
             'is_sexy' => true,
@@ -35,7 +38,8 @@ class UserSeeder extends Seeder
             'name' => 'Matou',
             'email' => 'matou@minette.com',
             'email_verified_at' => now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('matou'),
+            'password' => Hash::make('matou'),
+            'image' => 'image/matou.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => true,
@@ -45,7 +49,8 @@ class UserSeeder extends Seeder
             'name' => 'Crackhead',
             'email' => 'crackhead@minette.com',
             'email_verified_at' => now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('crackhead'),
+            'password' => Hash::make('crackhead'),
+            'image' => 'image/crackhead.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => false,
