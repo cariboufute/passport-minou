@@ -1935,7 +1935,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CatCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CatCard */ "./resources/js/components/CatCard.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CatCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CatCard */ "./resources/js/components/CatCard.vue");
+/* harmony import */ var _personal_token_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./.personal-token.js */ "./resources/js/components/.personal-token.js");
 //
 //
 //
@@ -1953,9 +1956,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+var baseUrl = 'http://minette.test/';
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    CatCard: _CatCard__WEBPACK_IMPORTED_MODULE_0__["default"]
+    CatCard: _CatCard__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -1964,11 +1970,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     askMinette: function askMinette(relation) {
+      this.askMinetteWithClientToken(relation); //this.askMinetteWithPersonalToken(relation);
+    },
+    askMinetteWithClientToken: function askMinetteWithClientToken(relation) {
+      var clientSecret = 'a6rSGoOUwafp0bRWzI6so7lLjcnSuOfmApCYrchm';
+      var password = window.user.name.split('@')[0].toLowerCase();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(baseUrl + 'oauth/token', {
+        'grant_type': 'password',
+        'client_id': 'minou-password',
+        'client_secret': clientSecret,
+        'username': window.user.name,
+        'password': password,
+        'scope': '*'
+      }).then(function (response) {
+        console.log(response.data);
+      });
+    },
+    askMinetteWithPersonalToken: function askMinetteWithPersonalToken(relation) {
       var _this = this;
 
-      axios.get('http://minette.test/api/' + relation).then(function (response) {
-        console.log(response.data);
-        _this.minetteAnswer = response.data;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(baseUrl + 'api/' + relation, {
+        headers: {
+          'Authorization': 'Bearer ' + _personal_token_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+        }
+      }).then(function (response) {
+        console.log(response.data.user);
+        _this.minetteAnswer = response.data.message;
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -52473,6 +52500,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/.personal-token.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/.personal-token.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiN2Q2M2QxNGRlYjZlZWE2Njk0MWE1MThkNGQ0NTk4ZmFhOTNkM2Q5ODhiYzM4MDBiODlkOWNlOWY5ZmYzZjgwMTAxMTJjOTFlODk1NWUxMzUiLCJpYXQiOjE1NzQ3MDM5NDgsIm5iZiI6MTU3NDcwMzk0OCwiZXhwIjoxNjA2MzI2MzQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ehoToR_Qcj6GoBLeRFciUXK9nytNfp4s1DxcWZmJbF30BrrKLjAeZdWiN8-pLwaHR0izAntIsqblNf4umMzWOMnlhWBE_x-mu805Zssu0c-FipG5VHL1OAa-G6NYlSWOww8daBJK-ea2NS5IkLlS7OFEAjy8K8fxOfmU7x1fj8gF6s8N1NOIMdgcdETYgwquME3Q8oLqtJiOKstXnzfcZ9nPuJTTsMSX_aJ_UvwnTQ67PawwxVf5q2D64rkoVhzuVjrczGwmnhTAgGOUqF-y2kme-m6e83CzJexMyjwtH7kahMHCmdvj0O28wOJZigAlBEiGnPlcygLik3iQYpMpptDTUrYVNluhXonTjtec6mNJ1AltWHSiGbeuAtPI5wpVGmeAR7KX7kGDJVrh_D3DsrUskMNFPomoaft_CzHlsoeqf1DbhQSFZE3WO8N28MPHKmwh_0QraUxESM1sR9erFE_HDmOwCPxBYvVBdm88wy6njNQjx-xpmkeEvVem3m6a3dOVivVHDh_BX9PGlFKDMV5JB-3qTwZe_FZ4Ejxg7pQM0VACppCe4SjdKZkl_H4xvYKAYe0o4gIyOXg58yNPgjALZdqERRXBwSjrHUkqscB40bJDao8UOShQ96zhXJXsBK_QVmQqx0J3UnJTDk9x-j80Hx_K7mR2zVDFzstgmF4');
+
+/***/ }),
+
 /***/ "./resources/js/components/CatCard.vue":
 /*!*********************************************!*\
   !*** ./resources/js/components/CatCard.vue ***!
@@ -53115,8 +53155,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/passport-minette/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/passport-minette/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/passport-minou/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/passport-minou/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

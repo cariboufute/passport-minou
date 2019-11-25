@@ -15,7 +15,11 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import CatCard from "./CatCard";
+    import personalToken from './.personal-token.js';
+
+    const baseUrl = 'http://minette.test/';
 
     export default {
         components: { CatCard },
@@ -28,10 +32,35 @@
 
         methods: {
             askMinette(relation) {
-                axios.get('http://minette.test/api/' + relation)
+                this.askMinetteWithClientToken(relation);
+                //this.askMinetteWithPersonalToken(relation);
+            },
+
+            askMinetteWithClientToken(relation) {
+                const clientSecret = 'a6rSGoOUwafp0bRWzI6so7lLjcnSuOfmApCYrchm';
+                const password = window.user.name.split('@')[0].toLowerCase();
+
+                axios.post(baseUrl + 'oauth/token', {
+                    'grant_type': 'password',
+                    'client_id': 'minou-password',
+                    'client_secret': clientSecret,
+                    'username': window.user.name,
+                    'password': password,
+                    'scope': '*',
+                }).then(response => {
+                    console.log(response.data);
+                })
+            },
+
+            askMinetteWithPersonalToken(relation) {
+                axios.get(baseUrl + 'api/' + relation, {
+                    headers: {
+                        'Authorization': 'Bearer ' + personalToken
+                    }
+                })
                     .then(response => {
-                        console.log(response.data);
-                        this.minetteAnswer = response.data;
+                        console.log(response.data.user);
+                        this.minetteAnswer = response.data.message;
                     })
                     .catch(error => console.log(error));
             }
