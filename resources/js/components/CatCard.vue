@@ -23,8 +23,6 @@
 
 <script>
     export default {
-        name: "CatCard",
-
         props: {
             username: String,
             image: String

@@ -81,6 +81,5 @@
         <script>
             window.user = {!! Auth::user() ?? 'undefined' !!};
         </script>
-        <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>

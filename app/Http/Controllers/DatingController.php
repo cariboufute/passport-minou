@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class DatingController extends Controller
 {
@@ -23,6 +24,13 @@ class DatingController extends Controller
     }
 
     public function love()
+    {
+        return Gate::allows('is-self') ?
+            'C\'est beau l\'amour de soi...' :
+            $this->loveWithAnother();
+    }
+
+    protected function loveWithAnother()
     {
         return Gate::allows('have-love') ?
             'Oh oui mon amour!' :

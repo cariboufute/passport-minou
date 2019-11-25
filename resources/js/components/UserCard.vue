@@ -11,7 +11,6 @@
     import CatCard from "./CatCard";
 
     export default {
-        name: "UserCatRequest",
         components: { CatCard },
         data() {
             return {
@@ -26,10 +25,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .cat-thumbnail {
-        width: 100px;
-        height: 100px;
-    }
-</style>

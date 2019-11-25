@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/sex', 'DatingController@sex');
-Route::get('/love', 'DatingController@love');
+Route::middleware('auth:api')->group(function() {
+    Route::get('/sex', 'DatingController@sex');
+    Route::get('/love', 'DatingController@love');
+});
+
