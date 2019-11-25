@@ -15,11 +15,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         $minette = User::create([
-            'name' => 'Minette',
+            'name' => User::MINETTE,
             'email' => 'minette@minette.com',
             'email_verified_at' => now(),
             'password' => Hash::make('minette'),
-            'image' => 'image/minette.jpg',
+            'image' => 'img/minette.jpg',
             'remember_token' => Str::random(10),
         ]);
 
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'email' => 'minou@minette.com',
             'email_verified_at' => now(),
             'password' => Hash::make('minou'),
-            'image' => 'image/minou.jpg',
+            'image' => 'img/minou.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => true,
             'is_sexy' => true,
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'email' => 'matou@minette.com',
             'email_verified_at' => now(),
             'password' => Hash::make('matou'),
-            'image' => 'image/matou.jpg',
+            'image' => 'img/matou.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => true,
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'email' => 'crackhead@minette.com',
             'email_verified_at' => now(),
             'password' => Hash::make('crackhead'),
-            'image' => 'image/crackhead.jpg',
+            'image' => 'img/crackhead.jpg',
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => false,

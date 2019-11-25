@@ -9,6 +9,8 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const MINETTE = 'Minette';
+
     use HasApiTokens, Notifiable;
 
     /**
