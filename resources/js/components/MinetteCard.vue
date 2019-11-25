@@ -32,8 +32,8 @@
 
         methods: {
             askMinette(relation) {
-                this.askMinetteWithClientToken(relation);
-                //this.askMinetteWithPersonalToken(relation);
+                //this.askMinetteWithClientToken(relation);
+                this.askMinetteWithPersonalToken(relation);
             },
 
             askMinetteWithClientToken(relation) {
@@ -59,8 +59,7 @@
                     }
                 })
                     .then(response => {
-                        console.log(response.data.user);
-                        this.minetteAnswer = response.data.message;
+                        this.minetteAnswer = response.data;
                     })
                     .catch(error => console.log(error));
             }
