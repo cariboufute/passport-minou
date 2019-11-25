@@ -14,3 +14,5 @@
 Route::middleware('auth')->get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
+
+Route::middleware('auth')->get('/clients', 'HomeController@clients')->name('clients');

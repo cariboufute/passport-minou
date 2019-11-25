@@ -4,10 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 import MainApp from './components/MainApp.vue';
-
+import PassportApp from "./components/PassportApp";
 window.Vue = require('vue');
 
 /**
@@ -19,21 +20,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('main-app', MainApp);
+Vue.component('passport-app', PassportApp);
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
 
 
 /**
