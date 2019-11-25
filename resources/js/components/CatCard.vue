@@ -5,15 +5,15 @@
                 <div class="card">
                     <div class="card-header">
                         <img class="img-thumbnail cat-thumbnail"
-                             :src="userImage"
-                             :alt="user.name"
+                             :src="image"
+                             :alt="username"
                         />
 
-                        {{ user.name }}
+                        {{ username }}
                     </div>
 
                     <div class="card-body">
-                        Que voulez-vous proposer à Minette&#8239;?
+                        <slot></slot>
                     </div>
                 </div>
             </div>
@@ -23,18 +23,11 @@
 
 <script>
     export default {
-        name: "UserCatRequest",
+        name: "CatCard",
 
-        data() {
-            return {
-                user: window.user
-            }
-        },
-
-        computed: {
-            userImage() {
-                return 'http://minette.test/' + user.image;
-            }
+        props: {
+            username: String,
+            image: String
         }
     }
 </script>
