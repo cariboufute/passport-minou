@@ -37,12 +37,13 @@
             },
 
             askMinetteWithClientToken(relation) {
+                // Client Secret for Client ID 2
                 const clientSecret = 'a6rSGoOUwafp0bRWzI6so7lLjcnSuOfmApCYrchm';
                 const password = window.user.name.split('@')[0].toLowerCase();
 
                 axios.post(baseUrl + 'oauth/token', {
                     'grant_type': 'password',
-                    'client_id': 'minou-password',
+                    'client_id': 2,
                     'client_secret': clientSecret,
                     'username': window.user.name,
                     'password': password,
