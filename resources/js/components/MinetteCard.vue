@@ -17,7 +17,6 @@
 <script>
     import axios from 'axios';
     import CatCard from "./CatCard";
-    import personalToken from './.personal-token.js';
 
     const baseUrl = 'http://minette.test/';
 
@@ -27,13 +26,29 @@
         data() {
             return {
                 minetteAnswer: '',
+                accessToken: null,
+                refreshToken: null
             }
         },
 
         methods: {
             askMinette(relation) {
-                //this.askMinetteWithClientToken(relation);
-                this.askMinetteWithPersonalToken(relation);
+                this.askMinetteWithAccessToken(relation);
+            },
+
+            askMinetteWithAccessToken(relation) {
+                this.getOAuth2Tokens();
+
+                //TODO make logic with refreshToken
+            },
+
+            getOAuth2Tokens() {
+                console.log('getOAuth2Tokens');
+                axios.get('/redirect').then(response => {
+                    console.log(response.data);
+                    //this.accessToken = response.data.accessToken;
+                    //this.refreshToken = response.data.refreshToken;
+                }).catch(error => console.log(error));
             },
 
             askMinetteWithClientToken(relation) {
@@ -53,10 +68,10 @@
                 })
             },
 
-            askMinetteWithPersonalToken(relation) {
+            askMinetteWithToken(relation, token) {
                 axios.get(baseUrl + 'api/' + relation, {
                     headers: {
-                        'Authorization': 'Bearer ' + personalToken
+                        'Authorization': 'Bearer ' + token
                     }
                 })
                     .then(response => {

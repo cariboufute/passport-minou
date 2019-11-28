@@ -8,7 +8,6 @@
 require('./bootstrap');
 
 import MainApp from './components/MainApp.vue';
-import PassportApp from "./components/PassportApp";
 window.Vue = require('vue');
 
 /**
@@ -20,7 +19,6 @@ window.Vue = require('vue');
  */
 
 Vue.component('main-app', MainApp);
-Vue.component('passport-app', PassportApp);
 
 
 
