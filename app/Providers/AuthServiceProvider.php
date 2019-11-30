@@ -26,7 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes();
 
         Gate::define('is-self', function ($user) {
             return $user->name === User::MINETTE;

@@ -58,3 +58,21 @@ Route::get('/callback', function (Request $request) {
 
     return json_decode((string)$response->getBody(), true);
 });
+
+Route::get('/password-token', function (Request $request) {
+    $http = new Client;
+
+    $response = $http->post('http://minette.test/oauth/token', [
+        'form_params' => [
+            'grant_type' => 'password',
+            'client_id' => 9,
+            'client_secret' => 'FEZFOfPxI0TfVZOmLqf272TwqtDHNVIROnseuPHN',
+            'redirect_uri' => 'http://localhost',
+            'username' => $request->username,
+            'password' => $request->password,
+            'scope' => '',
+        ],
+    ]);
+
+    return json_decode((string) $response->getBody(), true);
+});

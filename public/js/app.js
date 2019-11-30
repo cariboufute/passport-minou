@@ -1970,7 +1970,7 @@ var baseUrl = 'http://minette.test/';
   },
   methods: {
     askMinette: function askMinette(relation) {
-      this.askMinetteWithAccessToken(relation);
+      this.askMinetteWithClientToken(relation); //this.askMinetteWithAccessToken(relation);
     },
     askMinetteWithAccessToken: function askMinetteWithAccessToken(relation) {
       this.askMinetteWithToken(relation, "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiNzkxNTk0ZDI2NDM2MTZiMDJhYWUwM2FjY2QwNTI0YzJjN2Y4NjNjNGZkZmVmOWMwZTRmMWUwZWVlMDM4MzQ0Yzc4ZjhiZmM4M2RkMzI4ZDUiLCJpYXQiOjE1NzQ5MTMxODAsIm5iZiI6MTU3NDkxMzE4MCwiZXhwIjoxNjA2NTM1NTgwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.uHU56CRkv3SLXRKxwG9cKgFnWag_mNoFuAawvnf8Rbx4Q8BlyUmqcTP7KKMdMmoBNE2Xf9DhvMjfrOhE6Xbi5fr3sAWidCVX7Z9pjbBrd_yQgmP5G6nqcR-NaIsSZhLgT0ZAU_V_L6hHyaE4JTLy5ewhjEWOXvU9yhz2utHn3rMwm2AYI2xtslYbNsMaaGj2JvxZ8hoT_sTwJAN8rwPvGIQ0B97WjYhTnG87hzFEjK_9w0c4aMiwTg56mUtDmFc3uondHDS6ONy6iH_8Pc1cfa3EhVOk7xhJZW-lnYWecqu6hJhQuFZLVcgpJ8_qPF1oQhqs-YZGLKR70SUmaRaLMj9h92X82Eakfz7EN0o4VpiKFo3jBESlCazmaHqy5rQhE84M1DsdLF7h-R5LEK9nxAPjXgQeaXzEZveZpniKgF3_NRIPtlz6VdAZMw_ho8vjS8n84IgWsNRJfASf6xzQx_iou5ZSKMu9bN_sBxTU4jDrUv2EzyPGY0-0usm0NFgo6I6MYw7ZZqnr-iCXaytSXHaKNYk_T10XXFAA84NSFWkkvqZi4otpbcesRBezn1MetecWxq7OIcVSmZF4YuTWP-8_M4mHYnAU29T08MsU-VukJ7ADWL80nEn3j-lJwlOm5RQTSceKv2n2q8YAllife2H7PSb9G5J_wm8xLVURj5g"); //this.getOAuth2Tokens();
@@ -1986,29 +1986,31 @@ var baseUrl = 'http://minette.test/';
       });
     },
     askMinetteWithClientToken: function askMinetteWithClientToken(relation) {
-      // Client Secret for Client ID 2
-      var clientSecret = 'a6rSGoOUwafp0bRWzI6so7lLjcnSuOfmApCYrchm';
+      var _this = this;
+
       var password = window.user.name.split('@')[0].toLowerCase();
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(baseUrl + 'oauth/token', {
-        'grant_type': 'password',
-        'client_id': 2,
-        'client_secret': clientSecret,
-        'username': window.user.name,
-        'password': password,
-        'scope': '*'
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/password-token', {
+        params: {
+          'username': window.user.name,
+          'password': password
+        }
       }).then(function (response) {
         console.log(response.data);
+        _this.accessToken = response.data.accessToken;
+        _this.refreshToken = response.data.refreshToken;
+
+        _this.askMinetteWithToken(relation, _this.accessToken);
       });
     },
     askMinetteWithToken: function askMinetteWithToken(relation, token) {
-      var _this = this;
+      var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(baseUrl + 'api/' + relation, {
         headers: {
           'Authorization': 'Bearer ' + token
         }
       }).then(function (response) {
-        _this.minetteAnswer = response.data;
+        _this2.minetteAnswer = response.data;
       })["catch"](function (error) {
         return console.log(error);
       });
