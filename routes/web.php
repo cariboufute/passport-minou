@@ -26,7 +26,7 @@ Route::get('/redirect', function (Request $request) {
     $request->session()->put('state', $state);
 
     $query = http_build_query([
-        'client_id' => 7,
+        'client_id' => 1,
         'redirect_uri' => 'http://minou.test/callback',
         'response_type' => 'code',
         'scope' => '',
@@ -49,8 +49,8 @@ Route::get('/callback', function (Request $request) {
     $response = $http->post('http://minette.test/oauth/token', [
         'form_params' => [
             'grant_type' => 'authorization_code',
-            'client_id' => 7,
-            'client_secret' => 'CFgGJPsvu7RBGKY9bKvsEhrEjjVloV9zbrCCIYsE',
+            'client_id' => 1,
+            'client_secret' => 'vjapuwG0WFpEQlRtXiyri8ePD4C3N9PIFPhGgoYw',
             'redirect_uri' => 'http://minou.test/callback',
             'code' => $request->code,
         ],
