@@ -34,7 +34,8 @@
         methods: {
             askMinette(relation) {
                 //this.askMinetteWithClientToken(relation);
-                this.askMinetteWithAccessToken(relation);
+                //this.askMinetteWithAccessToken(relation);
+                this.askMinetteWithPersonalAccessToken(relation);
             },
 
             askMinetteWithAccessToken(relation) {
@@ -46,12 +47,12 @@
             },
 
             getOAuth2Tokens() {
-                console.log('getOAuth2Tokens');
-                return axios.get('/redirect').then(response => {
-                    console.log(response.data);
-                    this.accessToken = response.data.accessToken;
-                    this.refreshToken = response.data.refreshToken;
-                }).catch(error => console.log(error));
+                return axios.get('/redirect')
+                    .then(response => {
+                        this.accessToken = response.data.accessToken;
+                        this.refreshToken = response.data.refreshToken;
+                    })
+                    .catch(error => console.log(error));
             },
 
             askMinetteWithClientToken(relation) {
@@ -63,7 +64,6 @@
                         'password': password,
                     }
                 }).then(response => {
-                    console.log(response.data);
                     this.accessToken = response.data.accessToken;
                     this.refreshToken = response.data.refreshToken;
 
@@ -71,8 +71,14 @@
                 })
             },
 
-            askMinetteWithToken(relation, token) {
-                axios.get(baseUrl + 'api/' + relation, {
+            askMinetteWithPersonalAccessToken(relation) {
+                axios.get('/' + relation)
+                    .then(response => {
+                        this.minetteAnswer = response.data;
+                    })
+                    .catch(error => console.log(error));
+
+                /*axios.get(baseUrl + 'api/' + relation, {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
@@ -80,7 +86,7 @@
                     .then(response => {
                         this.minetteAnswer = response.data;
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => console.log(error));*/
             }
         }
     }

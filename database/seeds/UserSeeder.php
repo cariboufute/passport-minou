@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('minette'),
             'image' => 'img/minette.jpg',
+            'personal_access_token' => env('MINETTE_PERSONAL_TOKEN'),
             'remember_token' => Str::random(10),
         ]);
 
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('minou'),
             'image' => 'img/minou.jpg',
+            'personal_access_token' => env('MINOU_PERSONAL_TOKEN'),
             'remember_token' => Str::random(10),
             'is_husband' => true,
             'is_sexy' => true,
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('matou'),
             'image' => 'img/matou.jpg',
+            'personal_access_token' => env('MATOU_PERSONAL_TOKEN'),
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => true,
@@ -51,6 +54,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('crackhead'),
             'image' => 'img/crackhead.jpg',
+            'personal_access_token' => env('CRACKHEAD_PERSONAL_TOKEN'),
             'remember_token' => Str::random(10),
             'is_husband' => false,
             'is_sexy' => false,

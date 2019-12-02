@@ -1971,7 +1971,8 @@ var baseUrl = 'http://minette.test/';
   methods: {
     askMinette: function askMinette(relation) {
       //this.askMinetteWithClientToken(relation);
-      this.askMinetteWithAccessToken(relation);
+      //this.askMinetteWithAccessToken(relation);
+      this.askMinetteWithPersonalAccessToken(relation);
     },
     askMinetteWithAccessToken: function askMinetteWithAccessToken(relation) {
       var _this = this;
@@ -1983,9 +1984,7 @@ var baseUrl = 'http://minette.test/';
     getOAuth2Tokens: function getOAuth2Tokens() {
       var _this2 = this;
 
-      console.log('getOAuth2Tokens');
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/redirect').then(function (response) {
-        console.log(response.data);
         _this2.accessToken = response.data.accessToken;
         _this2.refreshToken = response.data.refreshToken;
       })["catch"](function (error) {
@@ -2002,25 +2001,29 @@ var baseUrl = 'http://minette.test/';
           'password': password
         }
       }).then(function (response) {
-        console.log(response.data);
         _this3.accessToken = response.data.accessToken;
         _this3.refreshToken = response.data.refreshToken;
 
         _this3.askMinetteWithToken(relation, _this3.accessToken);
       });
     },
-    askMinetteWithToken: function askMinetteWithToken(relation, token) {
+    askMinetteWithPersonalAccessToken: function askMinetteWithPersonalAccessToken(relation) {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(baseUrl + 'api/' + relation, {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      }).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/' + relation).then(function (response) {
         _this4.minetteAnswer = response.data;
       })["catch"](function (error) {
         return console.log(error);
       });
+      /*axios.get(baseUrl + 'api/' + relation, {
+          headers: {
+              'Authorization': 'Bearer ' + token
+          }
+      })
+          .then(response => {
+              this.minetteAnswer = response.data;
+          })
+          .catch(error => console.log(error));*/
     }
   }
 });
@@ -50354,7 +50357,6 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
